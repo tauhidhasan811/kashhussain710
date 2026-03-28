@@ -1,3 +1,10 @@
+import json
+
+with open('data/mot_history.json', 'r') as f:
+    data = json.load(f)
+
+print(data['data'])
+ 
 # import requests
 
 # url = "https://kashhussain710-backend-nestjs.onrender.com/api/v1/check-car/free"

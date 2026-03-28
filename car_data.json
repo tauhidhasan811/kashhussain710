@@ -1,0 +1,18 @@
+{
+    "registrationNumber": "AB12CDE",
+    "taxStatus": "Taxed",
+    "taxDueDate": "2026-12-01",
+    "motStatus": "Valid",
+    "make": "VAUXHALL",
+    "yearOfManufacture": 2017,
+    "engineCapacity": 1399,
+    "co2Emissions": 128,
+    "fuelType": "PETROL",
+    "markedForExport": false,
+    "colour": "WHITE",
+    "typeApproval": "M1",
+    "dateOfLastV5CIssued": "2025-04-25",
+    "motExpiryDate": "2026-06-11",
+    "wheelplan": "2 AXLE RIGID BODY",
+    "monthOfFirstRegistration": "2017-06"
+}
