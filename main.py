@@ -1,38 +1,29 @@
-# import requests
+from component.asset.prompt_tempt import  GenMotorPrompt, GenMTOPrompt
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+from component.config.openai_model import LoadGPT
+from dotenv import load_dotenv
 
-# url = "https://kashhussain710-backend-nestjs.onrender.com/api/v1/check-car/free"
+load_dotenv()
 
-# headers = {
-#     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmNkMGJhYWI3YzhjODljNmU1OGRjNSIsImVtYWlsIjoidXNlckBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc3NDY2OTEzOCwiZXhwIjoxNzc1MjczOTM4fQ.rXZiDwJPA0iUBtIjM1I_hVpjNRkmdlU0kG81jcSGP2s"
-# }
+app = FastAPI()
+llm = LoadGPT()
 
-# data = {
-#     "registrationNumber": "AB12CDE"
-# }
+@app.post("/analysis/motor")
+async def AnalysisCarData(motor_info: str, user_query: str, previous_chat: str):
+    prompt = GenMotorPrompt(motor_info=motor_info,
+                          user_query=user_query,
+                          previous_chat=previous_chat)
+    
+    response = llm.invoke(prompt.text)
+    return JSONResponse(
+        status_code=200,
+        content={
+            'status': True,
+            'message': response.content
+        }
+    )
 
-# response = requests.post(url, headers=headers, json=data)
+# prompt = GenMTOPrompt("MOT information", "User Query", "Previous chat")
 
-# print("Status Code:", response.status_code)
-# print("Response:", response.text)
-
-import requests
-import json
-url = "https://history.mot.api.gov.uk/v1/trade/vehicles"
-
-
-
-headers = {
-    "Accept": "application/json+v6",
-    "x-api-key": "B5fnZJm6F7axEdOZXaqGc8a5m6X6UqGT7yfRAU1B"
-}
-
-data = {
-    "registrationNumber": "AB12CDE"
-}
-
-response = requests.post(url, headers=headers, json=data)
-print(response)
-with open('mot_data.json', 'w', encoding='utf-8') as f:
-    json.dump(response.json(), f, indent=4)
-print("Status Code:", response.status_code)
-print("Response:", response.text)
+# print(prompt.text)
