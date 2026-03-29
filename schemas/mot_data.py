@@ -1,6 +1,8 @@
 from pydantic import BaseModel
+from typing import List, Dict
+
 
 class MOTData(BaseModel):
-    mot_info: str
+    mot_info: Dict
     user_query: str
-    previous_chat: str
+    previous_chat: List[Dict]
