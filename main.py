@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from component.config.openai_model import LoadGPT
 from dotenv import load_dotenv
+from schemas.mot_data import MOTData
+from schemas.motor_data import MotorData
 
 load_dotenv()
 
@@ -10,8 +12,12 @@ app = FastAPI()
 llm = LoadGPT()
 
 @app.post("/api/ai/analysis/motor")
-async def AnalysisCarData(motor_info: str, user_query: str, previous_chat: str):
+async def AnalysisCarData(motorData: MotorData):
     try:
+        motor_info=motorData.motor_info
+        user_query = motorData.user_query,
+        previous_chat = motorData.previous_chat
+
         prompt = GenMotorPrompt(motor_info=motor_info,
                             user_query=user_query,
                             previous_chat=previous_chat)
@@ -36,8 +42,11 @@ async def AnalysisCarData(motor_info: str, user_query: str, previous_chat: str):
         )
     
 @app.post("/api/ai/analysis/mot")
-async def AnalysisMOTData(mot_info: str, user_query: str, previous_chat: str):
+async def AnalysisMOTData(motData: MOTData):
     try:
+        mot_info=motData.mot_info
+        user_query = motData.user_query,
+        previous_chat = motData.previous_chat
         prompt = GenMOTPrompt(mot_info=mot_info,
                             user_query=user_query,
                             previous_chat=previous_chat)
