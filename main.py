@@ -1,5 +1,6 @@
 from component.asset.prompt_tempt import  GenMotorPrompt, GenMOTPrompt
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from component.config.openai_model import LoadGPT
 from dotenv import load_dotenv
@@ -10,7 +11,13 @@ load_dotenv()
 
 app = FastAPI()
 llm = LoadGPT()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.post("/api/ai/analysis/motor")
 async def AnalysisCarData(motorData: MotorData):
     try:
