@@ -21,12 +21,16 @@ app.add_middleware(
 @app.post("/api/ai/analysis/motor")
 async def AnalysisCarData(motorData: MotorData):
     try:
-        motor_info=motorData.motor_info
+        motor_info=motorData.motor_info,
+
         user_query = motorData.user_query,
         previous_chat = motorData.previous_chat
-
+        milleage_info = motorData.milleage_info
+        mot_info = motorData.mot_info   
         prompt = GenMotorPrompt(motor_info=motor_info,
                             user_query=user_query,
+                            milleage_info=milleage_info,
+                            mot_info=mot_info,
                             previous_chat=previous_chat)
         
         response = llm.invoke(prompt.text)

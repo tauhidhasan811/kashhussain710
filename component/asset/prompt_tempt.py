@@ -28,7 +28,8 @@ def GenMOTPrompt(mot_info, user_query, previous_chat):
 
     return prompt
 
-def GenMotorPrompt(motor_info, user_query, previous_chat):
+def GenMotorPrompt(motor_info, milleage_info, mot_info, 
+                   user_query, previous_chat):
     sys_message = SystemMessage(
         content=("You are a chat assignment"
                 "Your task is answer user query based on the Cars/Motor report data"
@@ -37,7 +38,7 @@ def GenMotorPrompt(motor_info, user_query, previous_chat):
     )
 
     human_message = HumanMessage(
-        content=f"Current user query: {user_query} \ncar data: {motor_info}\nUser previous query: {previous_chat}"
+        content=f"Current user query: {user_query} \ncar data: {motor_info}\nMileage data: {milleage_info}\nMOT data: {mot_info}\nUser previous query: {previous_chat}"
     )
 
     temp = PromptTemplate(
